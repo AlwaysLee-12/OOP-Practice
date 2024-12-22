@@ -39,6 +39,7 @@ public class Movie {
         return discountPercent;
     }
 
+    //메서드 시그니처를 통해 할인 정책 정보 노출(캡슐화 위반) -> 할인 정책 변경 시 클라이언트 코드 변경
     public Money calculateAmountDiscountedFee() {
         if (movieType != MovieType.AMOUNT_DISCOUNT) {
             throw new IllegalArgumentException();
@@ -47,6 +48,7 @@ public class Movie {
         return fee.minus(discountAmount);
     }
 
+    //메서드 시그니처를 통해 할인 정책 정보 노출(캡슐화 위반) -> 할인 정책 변경 시 클라이언트 코드 변경
     public Money calculatePercentDiscountedFee() {
         if (movieType != MovieType.PERCENT_DISCOUNT) {
             throw new IllegalArgumentException();
@@ -55,6 +57,7 @@ public class Movie {
         return fee.minus(fee.times(discountPercent));
     }
 
+    //메서드 시그니처를 통해 할인 정책 정보 노출(캡슐화 위반) -> 할인 정책 변경 시 클라이언트 코드 변경
     public Money calculateNoneDiscountedFee() {
         if (movieType != MovieType.NONE_DISCOUNT) {
             throw new IllegalArgumentException();
@@ -63,6 +66,10 @@ public class Movie {
         return fee;
     }
 
+    //Movie와 DiscountCondition 간 결합도가 높은 부분
+    //할인 정책의 명칭이 변경된다면 Movie 메서드 수정 필요
+    //할인 정책이 추가되거나 삭제된다면, 해당 메서드의 if~else문 수정 필요
+    //DiscountCondition의 할인 가능 여부 메서드 시그니쳐 변경이 있다면 해당 메서드의 클라이언트인 본 메서드 변경 필요
     public boolean isDiscountable(LocalDateTime whenScreened, int sequence) {
         for (DiscountCondition condition : discountConditions) {
             if (condition.getType() == DiscountConditionType.PERIOD) {

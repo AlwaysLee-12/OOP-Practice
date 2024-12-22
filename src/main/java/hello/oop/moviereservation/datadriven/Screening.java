@@ -26,6 +26,8 @@ public class Screening {
         return whenScreened;
     }
 
+    //DiscountConditon의 할인 여부 메서드 시그니쳐 변경은 Movie의 할인 가능 여부 메서드의 변경을 야기하고, 본 객체의 메서드의 변경을 야기한다
+    //이는 응집도가 낮은 것이며, 이 낮은 응집도는 캡슐화 위반으로 발생했다
     public Money calculateFee(int audienceCount) {
         switch (movie.getMovieType()) {
             case AMOUNT_DISCOUNT:

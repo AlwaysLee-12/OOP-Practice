@@ -17,6 +17,7 @@ public class DiscountCondition {
         return type;
     }
 
+    //메서드 시그니처를 통해 내부 데이터 정보 노출(캡슐화 위반) -> 내부 정보 변경 시 클라이언트 코드 변경
     public boolean isDiscountable(DayOfWeek dayOfWeek, LocalTime time) {
         if (type != DiscountConditionType.PERIOD) {
             throw new IllegalArgumentException();
@@ -27,6 +28,7 @@ public class DiscountCondition {
                 this.endTime.compareTo(time) >= 0;
     }
 
+    //메서드 시그니처를 통해 내부 데이터 정보 노출(캡슐화 위반) -> 내부 정보 변경 시 클라이언트 코드 변경
     public boolean isDiscountable(int sequence) {
         if (type != DiscountConditionType.PERIOD) {
             throw new IllegalArgumentException();
