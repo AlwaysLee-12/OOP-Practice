@@ -15,47 +15,7 @@ public class ReservationAgency {
      * 낮은 응집도 - 어떤 요구사항 변경을 구용하기 위해 하나 이상의 클래스를 수정해야 함(SRP 위반. 클래스는 단 한 가지의 변경 이유만 가져야 한다)
      */
     public Reservation reserve(Screening screening, Customer customer, int audienceCount) {
-        Movie movie = screening.getMovie();
-
-        boolean discountable = false;
-        for (DiscountCondition condition : movie.getDiscountConditions()) {
-            if (condition.getType() == DiscountConditionType.PERIOD) {
-                discountable =
-                        screening.getWhenScreened().getDayOfWeek().equals(condition.getDayOfWeek()) //캡슐화 위반
-                                &&
-                                condition.getStartTime() //캡슐화 위반
-                                        .compareTo(screening.getWhenScreened().toLocalTime()) <= 0
-                                &&
-                                condition.getEndTime() //캡슐화 위반
-                                        .compareTo(screening.getWhenScreened().toLocalTime()) >= 0;
-            } else {
-                discountable = condition.getSequence() == screening.getSequence(); //캡슐화 위반
-            }
-
-            if (discountable) {
-                break;
-            }
-        }
-
-        Money fee;
-        if (discountable) {
-            Money discountAmount = Money.ZERO;
-            switch (movie.getMovieType()) { //캡슐화 위반
-                case AMOUNT_DISCOUNT:
-                    discountAmount = movie.getDiscountAmount(); //캡슐화 위반
-                    break;
-                case PERCENT_DISCOUNT:
-                    discountAmount = movie.getFee().times(movie.getDiscountPercent()); //캡슐화 위반
-                    break;
-                case NONE_DISCOUNT:
-                    discountAmount = Money.ZERO;
-                    break;
-            }
-
-            fee = movie.getFee().minus(discountAmount); //캡슐화 위반
-        } else {
-            fee = movie.getFee(); //캡슐화 위반
-        }
+        Money fee = screening.calculateFee(audienceCount);
 
         return new Reservation(customer, screening, fee, audienceCount);
     }
