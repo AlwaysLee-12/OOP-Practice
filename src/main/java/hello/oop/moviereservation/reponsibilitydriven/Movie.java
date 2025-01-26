@@ -5,12 +5,15 @@ import java.util.List;
 
 
 // Movie에도 Polymophism + Protected Variation 적용
-public abstract class Movie {
+// 상속을 이용한 다형성의 적용은 할인 조건이 추가 될 때마다 인스턴스 추가 생성 및 생성자를 위한 동일 코드 복사 과정이 중복 수행
+// 합성을 이용한 방법으로 변경 -> 유연성 증가
+public class Movie {
 
     private String title;
     private Duration runningTime;
     private Money fee;
-    private List<DiscountCondition> discountConditons;
+    private DiscountPolicy discountPolicy;
+//    private List<DiscountCondition> discountConditons;
 
 //    private MovieType movieType;
 //    private Money discountAmount;
@@ -21,25 +24,27 @@ public abstract class Movie {
             String title,
             Duration runningTime,
             Money fee,
-            List<DiscountCondition> discountConditions) {
+            DiscountPolicy discountPolicy) {
         this.title = title;
         this.runningTime = runningTime;
         this.fee = fee;
-        this.discountConditons = discountConditions;
+        this.discountPolicy = discountPolicy;
+//        this.discountConditons = discountConditions;
     }
 
     public Money calculateMovieFee(Screening screening) {
-        if (isDiscountable(screening)) {
-            return fee.minus(calculateDiscountAmount());
-        }
-
-        return fee;
+//        if (isDiscountable(screening)) {
+//            return fee.minus(discountPolicy.calculateDiscountAmount());
+//        }
+//
+//        return fee;
+        return discountPolicy.calculateDiscountAmount(screening);
     }
 
-    private boolean isDiscountable(Screening screening) {
-        return discountConditons.stream()
-                .anyMatch(condition -> condition.isSatisfiedBy(screening));
-    }
+//    private boolean isDiscountable(Screening screening) {
+//        return discountConditons.stream()
+//                .anyMatch(condition -> condition.isSatisfiedBy(screening));
+//    }
 
     public Money getFee() {
         return fee;
@@ -66,5 +71,5 @@ public abstract class Movie {
 //        return fee.times(discountPercent);
 //    }
 
-    abstract protected Money calculateDiscountAmount();
+//    abstract protected Money calculateDiscountAmount();
 }

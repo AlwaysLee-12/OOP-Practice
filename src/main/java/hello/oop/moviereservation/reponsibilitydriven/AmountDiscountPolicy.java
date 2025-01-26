@@ -3,22 +3,19 @@ package hello.oop.moviereservation.reponsibilitydriven;
 import java.time.Duration;
 import java.util.List;
 
-public class AmountDiscountMovie extends Movie {
+public class AmountDiscountPolicy extends DiscountPolicy {
 
     private Money discountAmount;
 
-    public AmountDiscountMovie(
-            String title,
-            Duration runningTime,
-            Money fee,
+    public AmountDiscountPolicy(
             Money discountAmount,
             DiscountCondition... discountConditions) {
-        super(title, runningTime, fee, List.of(discountConditions));
+        super(List.of(discountConditions));
         this.discountAmount = discountAmount;
     }
 
     @Override
-    public Money calculateDiscountAmount() {
+    protected Money getDiscountAmount(Screening screening) {
         return discountAmount;
     }
 }
