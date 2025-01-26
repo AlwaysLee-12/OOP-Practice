@@ -3,16 +3,30 @@ package hello.oop.moviereservation.reponsibilitydriven;
 import java.time.Duration;
 import java.util.List;
 
-public class Movie {
+
+// Movie에도 Polymophism + Protected Variation 적용
+public abstract class Movie {
 
     private String title;
     private Duration runningTime;
     private Money fee;
     private List<DiscountCondition> discountConditons;
 
-    private MovieType movieType;
-    private Money discountAmount;
-    private double discountPercent;
+//    private MovieType movieType;
+//    private Money discountAmount;
+//    private double discountPercent;
+
+
+    public Movie(
+            String title,
+            Duration runningTime,
+            Money fee,
+            List<DiscountCondition> discountConditions) {
+        this.title = title;
+        this.runningTime = runningTime;
+        this.fee = fee;
+        this.discountConditons = discountConditions;
+    }
 
     public Money calculateMovieFee(Screening screening) {
         if (isDiscountable(screening)) {
@@ -27,29 +41,30 @@ public class Movie {
                 .anyMatch(condition -> condition.isSatisfiedBy(screening));
     }
 
-    private Money calculateDiscountAmount() {
-        switch (movieType) {
-            case AMOUNT_DISCOUNT:
-                return calculateAmountDiscountAmount();
-            case PERCENT_DISCOUNT:
-                return calculatePercentDiscountAmount();
-            case NONE_DISCOUNT:
-                return calculateNoneDiscountAmount();
-            default:
-                throw new IllegalStateException();
-        }
-    }
-
-    private Money calculateAmountDiscountAmount() {
-        return discountAmount;
-    }
-
-    private Money calculatePercentDiscountAmount() {
-        return fee.times(discountPercent);
-    }
-
-    private Money calculateNoneDiscountAmount() {
+    public Money getFee() {
         return fee;
     }
 
+    //    private Money calculateDiscountAmount() {
+//        switch (movieType) {
+//            case AMOUNT_DISCOUNT:
+//                return calculateAmountDiscountAmount();
+//            case PERCENT_DISCOUNT:
+//                return calculatePercentDiscountAmount();
+//            case NONE_DISCOUNT:
+//                return calculateNoneDiscountAmount();
+//            default:
+//                throw new IllegalStateException();
+//        }
+//    }
+
+//    private Money calculateAmountDiscountAmount() {
+//        return discountAmount;
+//    }
+
+//    private Money calculatePercentDiscountAmount() {
+//        return fee.times(discountPercent);
+//    }
+
+    abstract protected Money calculateDiscountAmount();
 }
