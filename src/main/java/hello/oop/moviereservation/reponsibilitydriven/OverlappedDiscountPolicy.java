@@ -2,12 +2,12 @@ package hello.oop.moviereservation.reponsibilitydriven;
 
 import java.util.List;
 
-public class OverlappedDiscountPolicy extends DiscountPolicy{
+public class OverlappedDiscountPolicy extends DefaultDiscountPolicy {
 
-    private final List<DiscountPolicy> discountPolicies;
+    private final List<DefaultDiscountPolicy> discountPolicies;
 
     public OverlappedDiscountPolicy(List<DiscountCondition> discountConditions,
-            List<DiscountPolicy> discountPolicies) {
+            List<DefaultDiscountPolicy> discountPolicies) {
         super(discountConditions);
         this.discountPolicies = discountPolicies;
     }
@@ -16,7 +16,7 @@ public class OverlappedDiscountPolicy extends DiscountPolicy{
     protected Money getDiscountAmount(Screening screening) {
         Money result = Money.ZERO;
 
-        for (DiscountPolicy each : discountPolicies) {
+        for (DefaultDiscountPolicy each : discountPolicies) {
             result.plus(each.calculateDiscountAmount(screening));
         }
 

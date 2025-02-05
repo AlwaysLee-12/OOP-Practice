@@ -1,9 +1,8 @@
 package hello.oop.moviereservation.reponsibilitydriven;
 
-import java.time.Duration;
 import java.util.List;
 
-public class PercentDiscountPolicy extends DiscountPolicy {
+public class PercentDiscountPolicy extends DefaultDiscountPolicy {
 
     private double discountPercent;
 

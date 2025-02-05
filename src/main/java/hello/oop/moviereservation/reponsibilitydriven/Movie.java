@@ -1,8 +1,6 @@
 package hello.oop.moviereservation.reponsibilitydriven;
 
 import java.time.Duration;
-import java.util.List;
-
 
 // Movie에도 Polymophism + Protected Variation 적용
 // 상속을 이용한 다형성의 적용은 할인 조건이 추가 될 때마다 인스턴스 추가 생성 및 생성자를 위한 동일 코드 복사 과정이 중복 수행
