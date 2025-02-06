@@ -13,11 +13,13 @@ public class NightlyDiscountPhone {
     private Money regularAmount;
     private Duration seconds;
     private List<Call> calls = new ArrayList<>();
+    private double taxRate;
 
-    public NightlyDiscountPhone(Money nightAmount, Money regularAmount, Duration seconds) {
+    public NightlyDiscountPhone(Money nightAmount, Money regularAmount, Duration seconds, double taxRate) {
         this.nightAmount = nightAmount;
         this.regularAmount = regularAmount;
         this.seconds = seconds;
+        this.taxRate = taxRate;
     }
 
     public Money calculateFee() {
@@ -34,7 +36,7 @@ public class NightlyDiscountPhone {
                 );
             }
         }
-
-        return result;
+        //요구사항이 추가되어 동일한 부분을 각각 다른 클래스에 대해 수정
+        return result.plus(result.times(taxRate));
     }
 }
