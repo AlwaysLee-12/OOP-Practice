@@ -29,16 +29,6 @@ public class NightlyDiscountPhone extends Phone {
         this.nightlyAmount = nightlyAmount;
     }
 
-    public Money calculateFee() {
-        Money result = Money.ZERO;
-
-        for (Call call : getCalls()) {
-            result = result.plus(calculateCallFee(call));
-        }
-        //요구사항이 추가되어 동일한 부분을 각각 다른 클래스에 대해 수정
-        return result;
-    }
-
     private Money calculateCallFee(Call call) {
         if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
                     return getAmount().minus(nightlyAmount)
