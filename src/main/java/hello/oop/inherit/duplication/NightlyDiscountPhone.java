@@ -30,17 +30,21 @@ public class NightlyDiscountPhone extends Phone {
     }
 
     public Money calculateFee() {
-        Money result = super.calculateFee();
+        Money result = Money.ZERO;
 
-        Money nightlyFee = Money.ZERO;
         for (Call call : getCalls()) {
-            if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
-                nightlyFee = nightlyFee.plus(
-                        getAmount().minus(nightlyAmount).times(call.getDuration().getSeconds() / getSeconds().getSeconds())
-                );
-            }
+            result = result.plus(calculateCallFee(call));
         }
         //요구사항이 추가되어 동일한 부분을 각각 다른 클래스에 대해 수정
-        return result.minus(nightlyAmount.plus(nightlyFee.times(getTaxRate())));
+        return result;
+    }
+
+    private Money calculateCallFee(Call call) {
+        if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
+                    return getAmount().minus(nightlyAmount)
+                            .times(call.getDuration().getSeconds() / getSeconds().getSeconds());
+        } else {
+            return getAmount().times(call.getDuration().getSeconds() / getSeconds().getSeconds());
+        }
     }
 }
