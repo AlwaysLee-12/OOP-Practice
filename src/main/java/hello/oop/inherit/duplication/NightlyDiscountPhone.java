@@ -5,38 +5,42 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NightlyDiscountPhone {
+public class NightlyDiscountPhone extends Phone {
 
     private static final int LATE_NIGHT_HOUR = 22;
 
-    private Money nightAmount;
-    private Money regularAmount;
-    private Duration seconds;
-    private List<Call> calls = new ArrayList<>();
-    private double taxRate;
+    private Money nightlyAmount;
+//    private Money regularAmount;
+//    private Duration seconds;
+//    private List<Call> calls = new ArrayList<>();
+//    private double taxRate;
 
-    public NightlyDiscountPhone(Money nightAmount, Money regularAmount, Duration seconds, double taxRate) {
-        this.nightAmount = nightAmount;
-        this.regularAmount = regularAmount;
-        this.seconds = seconds;
-        this.taxRate = taxRate;
+//    public NightlyDiscountPhone(Money nightAmount, Money regularAmount, Duration seconds, double taxRate) {
+//        this.nightlyAmount = nightAmount;
+//        this.regularAmount = regularAmount;
+//        this.seconds = seconds;
+//        this.taxRate = taxRate;
+//    }
+
+
+    public NightlyDiscountPhone(Money amount, Duration seconds, double taxRate,
+            Money nightlyAmount) {
+        super(amount, seconds, taxRate);
+        this.nightlyAmount = nightlyAmount;
     }
 
     public Money calculateFee() {
-        Money result = Money.ZERO;
+        Money result = super.calculateFee();
 
-        for (Call call : calls) {
+        Money nightlyFee = Money.ZERO;
+        for (Call call : getCalls()) {
             if (call.getFrom().getHour() >= LATE_NIGHT_HOUR) {
-                result = result.plus(
-                        nightAmount.times(call.getDuration().getSeconds() / seconds.getSeconds())
-                );
-            } else {
-                result = result.plus(
-                        regularAmount.times(call.getDuration().getSeconds() / seconds.getSeconds())
+                nightlyFee = nightlyFee.plus(
+                        getAmount().minus(nightlyAmount).times(call.getDuration().getSeconds() / getSeconds().getSeconds())
                 );
             }
         }
         //요구사항이 추가되어 동일한 부분을 각각 다른 클래스에 대해 수정
-        return result.plus(result.times(taxRate));
+        return result.minus(nightlyAmount.plus(nightlyFee.times(getTaxRate())));
     }
 }
