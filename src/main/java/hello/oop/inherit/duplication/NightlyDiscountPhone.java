@@ -11,7 +11,7 @@ public class NightlyDiscountPhone extends Phone {
     private Money regularAmount;
     private Duration seconds;
 //    private List<Call> calls = new ArrayList<>();
-    private double taxRate;
+//    private double taxRate;
 
 //    public NightlyDiscountPhone(Money nightAmount, Money regularAmount, Duration seconds, double taxRate) {
 //        this.nightlyAmount = nightAmount;
@@ -20,11 +20,12 @@ public class NightlyDiscountPhone extends Phone {
 //        this.taxRate = taxRate;
 //    }
 
-//    public NightlyDiscountPhone(Money amount, Duration seconds, double taxRate,
-//            Money nightlyAmount) {
-//        super(amount, seconds, taxRate);
-//        this.nightlyAmount = nightlyAmount;
-//    }
+    public NightlyDiscountPhone(Money nightlyAmount, Money regularAmount, Duration seconds, double taxRate) {
+        super(taxRate);
+        this.nightlyAmount = nightlyAmount;
+        this.regularAmount = regularAmount;
+        this.seconds = seconds;
+    }
 
     @Override
     protected Money calculateCallFee(Call call) {

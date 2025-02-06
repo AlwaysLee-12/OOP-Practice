@@ -20,12 +20,12 @@ public class RegularPhone extends Phone {
 //    private Money regularAmount;
     private Duration seconds;
     private List<Call> calls = new ArrayList<>();
-    private double taxRate;
+//    private double taxRate;
 
     public RegularPhone(Money amount, Duration seconds, double taxRate) {
+        super(taxRate);
         this.amount = amount;
         this.seconds = seconds;
-        this.taxRate = taxRate;
     }
 
     //    public Phone(PhoneType type, Money amount, Money nightAmount, Money regularAmount,
