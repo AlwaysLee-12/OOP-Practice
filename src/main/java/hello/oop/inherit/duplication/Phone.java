@@ -8,7 +8,7 @@ import java.util.List;
 //중복 코드 수정 1. 하나의 클래스에 합치기(낮은 응집도와 높은 결합도. 타입 별 사용되지 않는 데이터 방치)
 //2. 상속을 이용한 중복 코드 제거(부모 코드와 강결합, 세금 부과 요구사항 추가 시 중복 코드에 대해 같은 부분 중복 변경 필요)
 //3. 상속 구조에서의 결합도 완화(1. 차이점을 메서드로 추출, 자식 클래스의 추상적인 메서드를 부모 클래스로 승격)
-public class Phone {
+public class Phone extends AbstractPhone {
 
 //    private static final int LATE_NIGHT_HOUR = 22;
 //    enum PhoneType {REGULAR, NIGHTLY}
@@ -66,7 +66,8 @@ public class Phone {
         return taxRate;
     }
 
-    private Money calculateCallFee(Call call) {
+    @Override
+    protected Money calculateCallFee(Call call) {
         return amount.times(call.getDuration().getSeconds() / seconds.getSeconds());
     }
 }
