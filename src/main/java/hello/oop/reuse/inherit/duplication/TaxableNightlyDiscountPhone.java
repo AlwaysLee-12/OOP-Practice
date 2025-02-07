@@ -1,15 +1,17 @@
-package hello.oop.inherit.duplication;
+package hello.oop.reuse.inherit.duplication;
 
 import hello.oop.moviereservation.reponsibilitydriven.Money;
 import java.time.Duration;
 
-public class TaxableRegularPhone extends RegularPhone {
+public class TaxableNightlyDiscountPhone extends NightlyDiscountPhone {
 
     private double taxRate;
 
-    public TaxableRegularPhone(Money amount,
+    public TaxableNightlyDiscountPhone(
+            Money nightlyAmount,
+            Money regularAmount,
             Duration seconds, double taxRate) {
-        super(amount, seconds);
+        super(nightlyAmount, regularAmount, seconds);
         this.taxRate = taxRate;
     }
 

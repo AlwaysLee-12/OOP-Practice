@@ -1,4 +1,4 @@
-package hello.oop.inherit.duplication;
+package hello.oop.reuse.inherit.duplication;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

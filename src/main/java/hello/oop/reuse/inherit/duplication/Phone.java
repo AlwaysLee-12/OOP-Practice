@@ -1,10 +1,11 @@
-package hello.oop.inherit.duplication;
+package hello.oop.reuse.inherit.duplication;
 
 import hello.oop.moviereservation.reponsibilitydriven.Money;
 import java.util.ArrayList;
 import java.util.List;
 
 //현재 상속 구조에서 부가 정책으로 세금부과나 금액 할인 정책을 추가 하려고 하면 각 phone에 대해 부가 정책 가지 수만큼 클래스 폭발을 일으킨다
+//그리고 추가한 클래스들에 중복 코드가 존재한다
 public abstract class Phone {
 
     private List<Call> calls = new ArrayList<>();

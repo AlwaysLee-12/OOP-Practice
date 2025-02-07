@@ -1,8 +1,7 @@
-package hello.oop.inherit.duplication;
+package hello.oop.reuse.inherit.duplication;
 
 import hello.oop.moviereservation.reponsibilitydriven.Money;
 import java.time.Duration;
-import java.time.LocalDateTime;
 
 public class CallMain {
 
