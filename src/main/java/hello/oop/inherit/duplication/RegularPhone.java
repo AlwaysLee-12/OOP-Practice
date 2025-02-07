@@ -22,8 +22,7 @@ public class RegularPhone extends Phone {
     private List<Call> calls = new ArrayList<>();
 //    private double taxRate;
 
-    public RegularPhone(Money amount, Duration seconds, double taxRate) {
-        super(taxRate);
+    public RegularPhone(Money amount, Duration seconds) {
         this.amount = amount;
         this.seconds = seconds;
     }
@@ -62,9 +61,9 @@ public class RegularPhone extends Phone {
         return seconds;
     }
 
-    public double getTaxRate() {
-        return taxRate;
-    }
+//    public double getTaxRate() {
+//        return taxRate;
+//    }
 
     @Override
     protected Money calculateCallFee(Call call) {
